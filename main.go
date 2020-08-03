@@ -1,15 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
 	"path/filepath"
 
 	"sdkbox.com/helper/utils"
 )
-
-var sdkboxHome string
 
 // params
 var cmd string
@@ -25,6 +22,7 @@ func init() {
 }
 
 func installInstaller() {
+	sdkboxHome = "" // env.GetSDKBoxHome()
 	tempPath, err := curl(getInstallerURL(), filepath.Join(sdkboxHome, "bin", "sdkbox_installer.zip"))
 	if nil != err {
 		panic(err)
@@ -44,35 +42,7 @@ func installInstaller() {
 	fmt.Println("")
 }
 
-func getInstallerURL() string {
-	url := getInstallerVersionURL()
-	content, err := curl(url, "")
-	if nil != err {
-		panic(err)
-	}
-	var manifestMap map[string]interface{}
-	if err := json.Unmarshal([]byte(content), &manifestMap); err != nil {
-		return ""
-	}
 
-	item := manifestMap["packages"].(map[string]interface{})
-	item = item["SDKBOX"].(map[string]interface{})
-	item = item["versions"].(map[string]interface{})
-	for _, value := range item {
-		valMap := value.(map[string]string)
-		return getHost() + "installer/v1/" + valMap["bundle"]
-	}
-
-	return ""
-}
-
-func getInstallerCreatorGUIVersionURL() string {
-	return getHost() + "gui/creator/version"
-}
-
-func getInstallerVersionURL() string {
-	return getHost() + "installer/v1/manifest.json"
-}
 
 /*
  * useage:
@@ -86,20 +56,14 @@ func main() {
 	fmt.Println(">>> SDKBox Entry")
 	flag.Parse()
 
-	userHome, err := utils.Home()
-	if nil != err {
-		panic(err)
-	}
-	sdkboxHome = filepath.Join(userHome, ".sdkbox")
-
 	switch cmd {
 	case "install":
 		switch itype {
 		case "installer":
 			installInstaller()
 		case "gui_for_creator":
-			url := getInstallerCreatorGUIVersionURL()
-			fmt.Println(url)
+			// url := getInstallerCreatorGUIVersionURL()
+			// fmt.Println(url)
 		default:
 			panic("unknow command type")
 		}

@@ -1,4 +1,4 @@
-package host
+package url
 
 import (
 	"encoding/json"
