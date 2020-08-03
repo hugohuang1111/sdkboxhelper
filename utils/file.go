@@ -31,3 +31,11 @@ func CurDir() string {
 	}
 	return dir
 }
+
+// MakeSureDirExist make sure directory exists
+func MakeSureDirExist(path string) {
+	dir := filepath.Dir(path)
+	if !Exist(dir) {
+		os.MkdirAll(dir, os.ModePerm)
+	}
+}

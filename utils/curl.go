@@ -15,8 +15,9 @@ func CURL(url string, path string) (s string, e error) {
 	defer resp.Body.Close()
 	content, _ := ioutil.ReadAll(resp.Body)
 	if "" != path {
-		ioutil.WriteFile(path, content, os.FileMode(0666))
-		return path, nil
+		MakeSureDirExist(path)
+		err = ioutil.WriteFile(path, content, os.FileMode(0666))
+		return path, err
 	}
 
 	return string(content), nil

@@ -68,6 +68,7 @@ func InstallCreatorPlugin(staging, force bool, project string) error {
 	}
 
 	cp.Copy(filepath.Join(sdkboxHome, "temp", "sdkbox"), filepath.Join(packagesDir, "sdkbox"))
+	utils.MakeSureDirExist(filepath.Join(sdkboxHome, "creator", "app"))
 	os.Rename(filepath.Join(sdkboxHome, "temp", "sdkbox", "app"), filepath.Join(sdkboxHome, "creator", "app"))
 
 	return nil

@@ -20,6 +20,7 @@ func Install(staging, force bool) error {
 	if nil != err {
 		panic(err)
 	}
+
 	if err := utils.Unzip(tempPath, filepath.Join(sdkboxHome, "bin")); nil != err {
 		fmt.Println("Unzip sdkbox installer failed")
 		panic(err)
