@@ -10,8 +10,8 @@ import (
 	"strings"
 )
 
-// Home user home directory
-func Home() (string, error) {
+// UserHome user home directory
+func UserHome() (string, error) {
 	user, err := user.Current()
 	if nil == err {
 		return user.HomeDir, nil

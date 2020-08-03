@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"sdkbox.com/helper/env"
 )
 
 type location struct {
@@ -25,7 +27,7 @@ func getHost(staging bool) string {
 
 func loadLocation() string {
 	// ~/.sdkbox/conf/loc.json
-	locPath := filepath.Join(sdkboxHome, "conf", "loc.json")
+	locPath := filepath.Join(env.SDKBoxHome(), "conf", "loc.json")
 	locBytes, err := ioutil.ReadFile(locPath)
 	loc := location{}
 	err = json.Unmarshal(locBytes, &loc)

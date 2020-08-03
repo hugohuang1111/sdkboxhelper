@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"path/filepath"
 
+	"sdkbox.com/helper/installer"
 	"sdkbox.com/helper/utils"
 )
 
@@ -12,58 +12,40 @@ import (
 var cmd string
 var itype string
 var staging bool
+var projectPath string
 
 // http://staging.sdkbox.com/gui/creator/sdkbox-1.0.4.zip
 
 func init() {
 	flag.StringVar(&cmd, "c", "install", "command")
 	flag.StringVar(&itype, "t", "installer", "install type")
+	flag.StringVar(&projectPath, "p", "", "project path")
 	flag.BoolVar(&staging, "staging", false, "staging server")
 }
-
-func installInstaller() {
-	sdkboxHome = "" // env.GetSDKBoxHome()
-	tempPath, err := curl(getInstallerURL(), filepath.Join(sdkboxHome, "bin", "sdkbox_installer.zip"))
-	if nil != err {
-		panic(err)
-	}
-	if err := utils.Unzip(tempPath, filepath.Join(sdkboxHome, "bin")); nil != err {
-		fmt.Println("Unzip sdkbox installer failed")
-		panic(err)
-	}
-
-	fmt.Println("")
-	fmt.Println(">>>")
-	fmt.Println("Please add follow to your environment path")
-	fmt.Println("")
-	fmt.Println("export SDKBOX_HOME=" + sdkboxHome)
-	fmt.Println("export PATH=${SDKBOX_HOME}/bin:$PATH")
-	fmt.Println(">>>")
-	fmt.Println("")
-}
-
-
 
 /*
  * useage:
  * sdkboxhelper == sdkboxhelper install installer
- * sdkboxhelper install gui_for_creator
+ * sdkboxhelper install creator
  * sdkboxhelper upgrade installer
- * sdkboxhelper upgrade gui_for_creator
+ * sdkboxhelper upgrade creator
  *
  */
 func main() {
 	fmt.Println(">>> SDKBox Entry")
 	flag.Parse()
 
+	if "" == projectPath {
+		projectPath = utils.CurDir()
+	}
+
 	switch cmd {
 	case "install":
 		switch itype {
 		case "installer":
-			installInstaller()
-		case "gui_for_creator":
-			// url := getInstallerCreatorGUIVersionURL()
-			// fmt.Println(url)
+			installer.Install(staging, false)
+		case "creator":
+			installer.InstallCreatorPlugin(staging, false, projectPath)
 		default:
 			panic("unknow command type")
 		}

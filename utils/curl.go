@@ -6,7 +6,8 @@ import (
 	"os"
 )
 
-func curl(url string, path string) (s string, e error) {
+// CURL curl
+func CURL(url string, path string) (s string, e error) {
 	resp, err := http.Get(url)
 	if nil != err {
 		return "", err
