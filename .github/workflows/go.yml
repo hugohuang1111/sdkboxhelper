@@ -7,12 +7,32 @@ on:
 
 jobs:
 
-  build-for-mac:
-    name: BuildForMac
+  create_release:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+
+  build_release:
+    name: Build release
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-10.15, windows-2019]
+        include:
+          - os: macos-10.15
+            output: sdkboxhelper
+          - os: windows-2019
+            output: sdkboxhelper.exe
     steps:
 
     - name: Set up Go 1.x
@@ -32,27 +52,17 @@ jobs:
             dep ensure
         fi
 
-    - name: Build
-      run: go build -v .
+    - name: go build
+      run: go build
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
     - name: Upload Release Asset
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ${{ github.workspace }}/sdkboxhelper*
-        asset_name: sdkboxhelper
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ${{ github.workspace }}/${{ matrix.output }}
+        asset_name: ${{ matrix.output }}
         asset_content_type: application/octet-stream
-          
+
