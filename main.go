@@ -8,7 +8,7 @@ import (
 	"sdkboxhelper/utils"
 )
 
-const sdkboxHelperVersion string = "0.0.3"
+const sdkboxHelperVersion string = "0.0.4"
 
 // params
 var cmd string
