@@ -3,7 +3,7 @@ package installer
 import (
 	"fmt"
 	"path/filepath"
-	"runtime"
+	// "runtime"
 
 	"sdkboxhelper/env"
 	"sdkboxhelper/url"
@@ -30,17 +30,19 @@ func Install(staging, force bool) error {
 	fmt.Println("")
 	fmt.Println(">>>")
 
-	switch runtime.GOOS {
-	case "windows":
-		fmt.Println("Please add follow variable to your environment, and append to Path")
-		fmt.Println("SDKBOX_HOME=" + sdkboxHome)
-		fmt.Println("Path=other_path;${SDKBOX_HOME}/bin")
-	case "linux", "darwin":
-		fmt.Println("Please add follow to your environment path:")
-		fmt.Println("export SDKBOX_HOME=" + sdkboxHome)
-		fmt.Println("export PATH=${SDKBOX_HOME}/bin:$PATH")
-	default:
-	}
+	env.AddEnvVar("SDKBOX_HOME", sdkboxHome)
+	fmt.Println("sdkbox installed, please type `sdkbox -h` in terminal (maybe need reopen terminal or restart to make env var enable)")
+	// switch runtime.GOOS {
+	// case "windows":
+	// 	fmt.Println("Please add follow variable to your environment, and append to Path")
+	// 	fmt.Println("SDKBOX_HOME=" + sdkboxHome)
+	// 	fmt.Println("Path=other_path;%SDKBOX_HOME%\\bin")
+	// case "linux", "darwin":
+	// 	fmt.Println("Please add follow to your environment path:")
+	// 	fmt.Println("export SDKBOX_HOME=" + sdkboxHome)
+	// 	fmt.Println("export PATH=${SDKBOX_HOME}/bin:$PATH")
+	// default:
+	// }
 
 	fmt.Println(">>>")
 	fmt.Println("")

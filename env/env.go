@@ -2,6 +2,8 @@ package env
 
 import (
 	"path/filepath"
+	"runtime"
+	"errors"
 
 	"sdkboxhelper/utils"
 )
@@ -28,4 +30,22 @@ func SDKBoxHome() string {
 	}
 	sdkboxHome = filepath.Join(userHome, ".sdkbox")
 	return sdkboxHome
+}
+
+// GetEnvVar get env variable
+func GetEnvVar(key string) (string, bool) {
+
+	return "", false
+}
+
+// AddEnvVar add env variable
+func AddEnvVar(key string, value string) error {
+	switch runtime.GOOS {
+	case "windows":
+		return addWinEnvVar(key, value)
+	case "linux", "darwin":
+		return addUnixEnvVar(key, value)
+	default:
+		return errors.New("unsupport platform:" + runtime.GOOS)
+	}
 }
