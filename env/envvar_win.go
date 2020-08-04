@@ -1,3 +1,5 @@
+// +build windows
+
 package env
 
 import (
@@ -7,9 +9,9 @@ import (
 	"golang.org/x/sys/windows/registry"
 )
 
-func addWinEnvVar(key string, value string) error {
+func addEnvVarImp(key string, value string) error {
 
-	k, err := registry.OpenKey(registry.CURRENT_USER, `Environment`, registry.QUERY_VALUE | registry.WRITE)
+	k, err := registry.OpenKey(registry.CURRENT_USER, `Environment`, registry.QUERY_VALUE|registry.WRITE)
 	if err != nil {
 		return err
 	}

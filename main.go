@@ -41,8 +41,8 @@ func main() {
 	if "" == projectPath {
 		projectPath = utils.CurDir()
 	}
-	fmt.Println("")
 	fmt.Println("SDKBox Helper Version:" + sdkboxHelperVersion)
+	fmt.Println("")
 
 	switch itype {
 	case "installer":

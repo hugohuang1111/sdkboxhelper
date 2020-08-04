@@ -39,3 +39,14 @@ func MakeSureDirExist(path string) {
 		os.MkdirAll(dir, os.ModePerm)
 	}
 }
+
+// AppendToFile append to file
+func AppendToFile(path string, content []byte) error {
+	fl, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer fl.Close()
+	_, err = fl.Write(content)
+	return err
+}

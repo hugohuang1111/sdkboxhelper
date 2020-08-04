@@ -1,26 +1,26 @@
+// +build !windows
+
 package env
 
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
+	"sdkboxhelper/utils"
 	"strings"
 )
 
-func addUnixEnvVar(key string, value string) error {
+func addEnvVarImp(key string, value string) error {
 	profilePath := getUnixProfileFile()
 	if "" == profilePath {
 		return errors.New("profile file is empty")
 	}
 
-	s1 := fmt.Sprintf("export %s=%s", key, value)
-	s2 := fmt.Sprintf("export PATH=${%s}/bin:$PATH", key)
+	s1 := fmt.Sprintf("\nexport %s=%s\nexport PATH=${%s}/bin:$PATH\n", key, value, key)
 
-	ioutil.WriteFile(profilePath, []byte(s1), os.ModeAppend)
-	ioutil.WriteFile(profilePath, []byte(s2), os.ModeAppend)
+	utils.AppendToFile(profilePath, []byte(s1))
 
 	return nil
 }

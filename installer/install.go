@@ -3,7 +3,6 @@ package installer
 import (
 	"fmt"
 	"path/filepath"
-	// "runtime"
 
 	"sdkboxhelper/env"
 	"sdkboxhelper/url"

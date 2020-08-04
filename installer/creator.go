@@ -73,7 +73,7 @@ func InstallCreatorPlugin(staging, force bool, project string) error {
 
 	fmt.Println("")
 	fmt.Println(">>>")
-	fmt.Println("Install SDKBox GUI finish")
+	fmt.Println("SDKBox GUI installed")
 	fmt.Println(">>>")
 	fmt.Println("")
 

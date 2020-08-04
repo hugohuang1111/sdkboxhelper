@@ -2,8 +2,6 @@ package env
 
 import (
 	"path/filepath"
-	"runtime"
-	"errors"
 
 	"sdkboxhelper/utils"
 )
@@ -40,12 +38,5 @@ func GetEnvVar(key string) (string, bool) {
 
 // AddEnvVar add env variable
 func AddEnvVar(key string, value string) error {
-	switch runtime.GOOS {
-	case "windows":
-		return addWinEnvVar(key, value)
-	case "linux", "darwin":
-		return addUnixEnvVar(key, value)
-	default:
-		return errors.New("unsupport platform:" + runtime.GOOS)
-	}
+	return addEnvVarImp(key, value)
 }
