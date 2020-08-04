@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 )
 
 // GetEnvVar get env variable
@@ -26,8 +27,6 @@ func AddEnvVar(key string, value string) error {
 	default:
 		return errors.New("unsupport platform:" + runtime.GOOS)
 	}
-
-	return nil
 }
 
 func addWinEnvVar(key string, value string) error {
@@ -75,5 +74,5 @@ func getUnixProfileFile() string {
 
 func isZsh() bool {
 	val := os.Getenv("SHELL")
-	return val.HasSuffix("zsh")
+	return strings.HasSuffix(val, "zsh")
 }
