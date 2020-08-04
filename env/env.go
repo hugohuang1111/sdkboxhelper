@@ -3,7 +3,7 @@ package env
 import (
 	"path/filepath"
 
-	"sdkbox.com/helper/utils"
+	"sdkboxhelper/utils"
 )
 
 var sdkboxHome string

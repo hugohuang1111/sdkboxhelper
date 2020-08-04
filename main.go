@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	"sdkbox.com/helper/installer"
-	"sdkbox.com/helper/utils"
+	"sdkboxhelper/installer"
+	"sdkboxhelper/utils"
 )
 
 const sdkboxHelperVersion string = "0.0.1"

@@ -8,9 +8,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"sdkbox.com/helper/env"
-	"sdkbox.com/helper/url"
-	"sdkbox.com/helper/utils"
+	"sdkboxhelper/env"
+	"sdkboxhelper/url"
+	"sdkboxhelper/utils"
 
 	"github.com/hashicorp/go-version"
 	cp "github.com/otiai10/copy"

@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"sdkbox.com/helper/env"
-	"sdkbox.com/helper/utils"
+	"sdkboxhelper/env"
+	"sdkboxhelper/utils"
 )
 
 type location struct {

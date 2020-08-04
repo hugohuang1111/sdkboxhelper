@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"sdkbox.com/helper/env"
-	"sdkbox.com/helper/url"
-	"sdkbox.com/helper/utils"
+	"sdkboxhelper/env"
+	"sdkboxhelper/url"
+	"sdkboxhelper/utils"
 )
 
 // Install install installer

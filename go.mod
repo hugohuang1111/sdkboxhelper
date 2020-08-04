@@ -1,4 +1,4 @@
-module sdkbox.com/helper
+module sdkboxhelper
 
 go 1.14
 

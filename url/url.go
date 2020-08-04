@@ -3,7 +3,7 @@ package url
 import (
 	"encoding/json"
 
-	"sdkbox.com/helper/utils"
+	"sdkboxhelper/utils"
 )
 
 // GetInstallerURL get installer url
