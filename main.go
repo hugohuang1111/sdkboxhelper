@@ -8,6 +8,8 @@ import (
 	"sdkbox.com/helper/utils"
 )
 
+const sdkboxHelperVersion string = "0.0.1"
+
 // params
 var cmd string
 var itype string
@@ -39,6 +41,8 @@ func main() {
 	if "" == projectPath {
 		projectPath = utils.CurDir()
 	}
+	fmt.Println("")
+	fmt.Println("SDKBox Helper Version:" + sdkboxHelperVersion)
 
 	switch itype {
 	case "installer":
