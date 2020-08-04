@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"sdkbox.com/helper/env"
+	"sdkbox.com/helper/utils"
 )
 
 type location struct {
@@ -34,6 +35,7 @@ func loadLocation() string {
 	if nil != err || "" == loc.CountryCode {
 		loc.CountryCode = loadLocationByIP()
 		if locBytes, err = json.Marshal(loc); nil == err {
+			utils.MakeSureDirExist(locPath)
 			ioutil.WriteFile(locPath, locBytes, os.FileMode(0666))
 		}
 	}

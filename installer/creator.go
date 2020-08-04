@@ -71,6 +71,12 @@ func InstallCreatorPlugin(staging, force bool, project string) error {
 	utils.MakeSureDirExist(filepath.Join(sdkboxHome, "creator", "app"))
 	os.Rename(filepath.Join(sdkboxHome, "temp", "sdkbox", "app"), filepath.Join(sdkboxHome, "creator", "app"))
 
+	fmt.Println("")
+	fmt.Println(">>>")
+	fmt.Println("Install SDKBox GUI finish")
+	fmt.Println(">>>")
+	fmt.Println("")
+
 	return nil
 }
 
